@@ -64,12 +64,12 @@ export default {
   },
   async mounted(){
     let self=this;
-    // let {status,data:{count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
-    //   params:{
-    //     keyword:'景点',
-    //     city:self.$store.state.geo.position.city
-    //   }
-    // })
+    let {status,data:{count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
+      params:{
+        keyword:'景点',
+        city:self.$store.state.geo.position.city
+      }
+    })
     if(status===200&&count>0){
       let r= pois.filter(item=>item.photos.length).map(item=>{
         return {
