@@ -8,7 +8,9 @@
     </dl>
     <dl v-for="item in block" :key="item.title" class="m-category-section"> 
       <dt :id="'city-' + item.title">{{ item.title }}</dt>
+      <dd>
         <span v-for="c in item.city" :key="c">{{ c }}</span>
+      </dd>
     </dl>
   </div>
 </template>
@@ -60,5 +62,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/css/changeCity/category.scss";
+@import "@/assets/css/changecity/category.scss";
 </style>

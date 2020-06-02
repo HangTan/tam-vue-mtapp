@@ -9,20 +9,38 @@
       </el-col>
       <el-col :span="15" class="center">
         <div class="wrapper">
-          <el-input v-model="search" placeholder="搜索商家或地点" @focus="focus" @click="blur" @input="input"></el-input>
+          <el-input
+            v-model="search"
+            placeholder="搜索商家或地点"
+            @focus="focus"
+            @click="blur"
+            @input="input"
+          ></el-input>
           <button class="el-button el-button--primary">
             <i class="el-icon-search"></i>
           </button>
           <dl class="hotPlace" v-if="isHotPlace">
             <dt>热门搜索</dt>
-            <dd v-for="(item, index) in $store.state.home.hotPlace.slice(0, 5)" :key="index">{{ item.name }}</dd>
+            <dd
+              v-for="(item, index) in $store.state.home.hotPlace.slice(0, 5)"
+              :key="index"
+            >
+              <a :href="'/products?keyword=' + encodeURIComponent(item.name)">{{ item.name }}</a>
+            </dd>
           </dl>
           <dl class="searchList" v-if="isSearchList">
-            <dd v-for="(item, index) in searchList" :key="index">{{ item.name }}</dd>
+            <dd v-for="(item, index) in searchList" :key="index">
+              <a :href="'/products?keyword=' + encodeURIComponent(item.name)">{{ item.name }}</a>
+            </dd>
           </dl>
         </div>
         <p class="suggest">
-          <a href="#" v-for="(item, index) in $store.state.home.hotPlace.slice(0, 5)" :key="index">{{item.name}}</a>
+          <a
+            v-for="(item, index) in $store.state.home.hotPlace.slice(0, 5)"
+            :key="index"
+            :href="'/products?keyword=' + encodeURIComponent(item.name)"
+            >{{ item.name }}</a
+          >
         </p>
         <ul class="nav">
           <li>
@@ -63,11 +81,11 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from "lodash";
 export default {
   data() {
     return {
-      search: '',
+      search: "",
       isFocus: false,
       hotPlace: [],
       searchList: []
@@ -89,19 +107,22 @@ export default {
       let self = this;
       setTimeout(function() {
         self.isFocus = false;
-      }, 200)
+      }, 200);
     },
     input: _.debounce(async function() {
       let self = this;
-      let city = self.$store.state.geo.position.city.replace('市','');
+      let city = self.$store.state.geo.position.city.replace("市", "");
       self.searchList = [];
-      let {status, data:{top}} = await self.$axios.get('/search/top', {
+      let {
+        status,
+        data: { top }
+      } = await self.$axios.get("/search/top", {
         params: {
           input: self.search,
           city
         }
-      })
-      self.searchList = top.slice(0,10);
+      });
+      self.searchList = top.slice(0, 10);
     }, 300)
   }
 };

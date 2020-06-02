@@ -1,2 +1,2 @@
-GET http://localHost:3000/geo/city HTTP/1.1
+GET http://localHost:3000/category/crumbs?city=北京 HTTP/1.1
 content-type: application/json

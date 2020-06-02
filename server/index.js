@@ -12,6 +12,7 @@ import passport from './interface/utils/passport'
 import users from './interface/users'
 import geo from './interface/geo'
 import search from './interface/search'
+import category from './interface/category'
 
 
 const app = new Koa()
@@ -62,6 +63,8 @@ async function start () {
   app.use(geo.routes()).use(geo.allowedMethods())
   // 导入 search 路由
   app.use(search.routes()).use(search.allowedMethods())
+  // 导入 category 路由
+  app.use(category.routes()).use(category.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200
